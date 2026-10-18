@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "consensus-ai"
 version = "0.1"
-description = "Multi-model consensus strategies and execution patterns for LLM orchestration"
+description = "Reusable consensus and disagreement-handling algorithms"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
@@ -28,9 +28,9 @@ classifiers = [
 dev = ["pytest", "pytest-asyncio", "ruff", "mypy", "bandit"]
 
 [project.urls]
-Homepage = "https://github.com/FlossWare/consensus-ai"
-Repository = "https://github.com/FlossWare/consensus-ai"
-Issues = "https://github.com/FlossWare/consensus-ai/issues"
+Homepage = "https://github.com/FlossWare/consensus"
+Repository = "https://github.com/FlossWare/consensus"
+Issues = "https://github.com/FlossWare/consensus/issues"
 
 [tool.setuptools.packages.find]
 include = ["consensus_ai*"]
