@@ -12,16 +12,15 @@ from __future__ import annotations
 
 import asyncio
 import functools
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any, cast
 
 from consensus_ai.consensus_strategies import (
     MajorityVoteStrategy,
     QualityThresholdStrategy,
-    ResponseConsensusStrategy,
     WeightedConsensusStrategy,
 )
-from consensus_ai.patterns import CascadePattern, ConsensusPattern
-from consensus_ai.types import ChatResponse, PatternResult
+from consensus_ai.types import ChatResponse
 
 
 def with_consensus(
@@ -55,12 +54,6 @@ def with_consensus(
     The decorated function returns a ``ConsensusOutcome`` instead of a
     single ``ChatResponse``.
     """
-    strategies: dict[str, Any] = {
-        "majority_vote": MajorityVoteStrategy,
-        "weighted": lambda: WeightedConsensusStrategy(weights=weights),
-        "quality_threshold": lambda: QualityThresholdStrategy(min_quality=min_quality),
-    }
-
     def decorator(fn: Callable) -> Callable:
         @functools.wraps(fn)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -74,7 +67,7 @@ def with_consensus(
             # Fan out model calls concurrently.
             async def _call(model_id: str) -> ChatResponse:
                 kw = {**kwargs, "model": model_id}
-                return await fn(*args, **kw)
+                return cast(ChatResponse, await fn(*args, **kw))
 
             responses: list[ChatResponse] = list(
                 await asyncio.gather(*[_call(m) for m in model_list])
