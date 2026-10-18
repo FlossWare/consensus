@@ -28,3 +28,7 @@ Worker / Arbiter / Evaluator
 **Implementation mismatch to resolve:** the current `consensus_ai` package also exports `ConsensusPattern`, `CascadePattern`, `MapReducePattern`, `with_cascade`, and a `ModelRouter` protocol. These are real current APIs, but generic workflow composition and model routing exceed the intended consensus boundary. Treat them as legacy surface pending a reviewed migration; this README does not imply they have already been removed.
 
 Consensus must not bypass authorization, policy, safety, or budget constraints. It should expose enough evidence to explain how an aggregate result was produced.
+
+## Packaging note
+
+The repository is named `consensus`. The current distribution/import identifiers remain `consensus-ai` and `consensus_ai`; repository naming does not automatically rename a published package or Python imports. Change those identifiers only through an explicit compatibility and release decision.
