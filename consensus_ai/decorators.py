@@ -18,6 +18,7 @@ from typing import Any, cast
 from consensus_ai.consensus_strategies import (
     MajorityVoteStrategy,
     QualityThresholdStrategy,
+    ResponseConsensusStrategy,
     WeightedConsensusStrategy,
 )
 from consensus_ai.types import ChatResponse
@@ -54,6 +55,7 @@ def with_consensus(
     The decorated function returns a ``ConsensusOutcome`` instead of a
     single ``ChatResponse``.
     """
+
     def decorator(fn: Callable) -> Callable:
         @functools.wraps(fn)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -74,6 +76,7 @@ def with_consensus(
             )
 
             # Apply consensus strategy.
+            strat: ResponseConsensusStrategy
             if strategy == "majority_vote":
                 strat = MajorityVoteStrategy()
             elif strategy == "weighted":
@@ -118,7 +121,7 @@ def with_cascade(
             for model_id in fallbacks:
                 try:
                     kw = {**kwargs, "model": model_id}
-                    return await fn(*args, **kw)
+                    return cast(ChatResponse, await fn(*args, **kw))
                 except Exception as exc:
                     errors.append(exc)
 
