@@ -7,7 +7,8 @@ Nothing outside the standard library is imported.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, AsyncIterator, Protocol, runtime_checkable
+from collections.abc import AsyncIterator
+from typing import TYPE_CHECKING, Any, Protocol, runtime_checkable
 
 if TYPE_CHECKING:
     from consensus_ai.types import ChatMessage, ChatResponse
