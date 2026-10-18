@@ -152,9 +152,7 @@ class CascadePattern:
                 duration_ms = (time.perf_counter() - start) * 1000
                 return PatternResult(
                     pattern="cascade",
-                    results=[
-                        {"model": model, "content": resp.content, "success": True}
-                    ],
+                    results=[{"model": model, "content": resp.content, "success": True}],
                     metadata={
                         "model_used": model,
                         "attempts": len(errors) + 1,
