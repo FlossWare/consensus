@@ -21,8 +21,10 @@ Worker / Arbiter / Evaluator
 ## Responsibility split
 
 - `loom-ai` defines AI-domain execution contracts and semantics, including Worker and Arbiter behavior.
-- `consensus` provides reusable consensus algorithms and disagreement-handling behavior.
+- `consensus` should own reusable consensus algorithms and disagreement-handling behavior.
 - `evaluation` determines whether a result satisfies an intended outcome.
 - `model-gateway` owns provider-neutral model invocation and resource management.
+
+**Implementation mismatch to resolve:** the current `consensus_ai` package also exports `ConsensusPattern`, `CascadePattern`, `MapReducePattern`, `with_cascade`, and a `ModelRouter` protocol. These are real current APIs, but generic workflow composition and model routing exceed the intended consensus boundary. Treat them as legacy surface pending a reviewed migration; this README does not imply they have already been removed.
 
 Consensus must not bypass authorization, policy, safety, or budget constraints. It should expose enough evidence to explain how an aggregate result was produced.
