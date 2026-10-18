@@ -25,7 +25,7 @@ Worker / Arbiter / Evaluator
 - `evaluation` determines whether a result satisfies an intended outcome.
 - `model-gateway` owns provider-neutral model invocation and resource management.
 
-**Implementation mismatch to resolve:** the current `consensus_ai` package also exports `ConsensusPattern`, `CascadePattern`, `MapReducePattern`, `with_cascade`, and a `ModelRouter` protocol. These are real current APIs, but generic workflow composition and model routing exceed the intended consensus boundary. Treat them as legacy surface pending a reviewed migration; this README does not imply they have already been removed.
+**Implementation mismatch to resolve:** the current `consensus_ai` package also exports `ConsensusPattern`, `CascadePattern`, `MapReducePattern`, `with_cascade`, and a `ModelRouter` protocol. These are real current APIs, but generic workflow composition and model routing exceed the intended consensus boundary. Treat them as legacy surface pending a reviewed migration; this README does not imply they have already been removed. The migration is tracked in [issue #2](https://github.com/FlossWare/consensus/issues/2).
 
 Consensus must not bypass authorization, policy, safety, or budget constraints. It should expose enough evidence to explain how an aggregate result was produced.
 
