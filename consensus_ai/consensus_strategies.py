@@ -238,11 +238,7 @@ class QualityThresholdStrategy:
             scores.append(sum(sims) / len(sims) if sims else 0.0)
 
         # Filter by threshold.
-        qualified = [
-            (i, scores[i])
-            for i in range(len(responses))
-            if scores[i] >= self._min_quality
-        ]
+        qualified = [(i, scores[i]) for i in range(len(responses)) if scores[i] >= self._min_quality]
 
         if not qualified:
             # Fall back to best available even if below threshold.
